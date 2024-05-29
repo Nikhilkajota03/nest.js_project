@@ -29,11 +29,19 @@ export class UsersService {
     return { user: foundUser };
   }
 
-  async getUsers() {
+    async getUsers() {
     const users = await this.prisma.user.findMany({
-      select: { id: true, email: true },
+      select: {
+        id: true,
+        email: true,
+        walletAddress: {
+          select: {
+            address: true,
+          },
+        },
+      },
     });
-
+  
     return { users };
   }
 
